@@ -1,5 +1,7 @@
 # Caffè Del Mattino — site web
 
+**🌍 Site en ligne : https://samincib.github.io/caffe-del-mattino/**
+
 Site vitrine et commande en ligne pour la cafétéria **Caffè Del Mattino**.
 Le client consulte la carte, remplit son panier et envoie sa commande **par WhatsApp**.
 Aucun paiement en ligne, aucun serveur à payer : le site est 100 % statique.
@@ -24,6 +26,7 @@ Autres commandes :
 | `npm run preview` | Teste le site final en local (http://localhost:4173)        |
 | `npm run images`  | Recalcule les images optimisées à partir de `assets-source/` |
 | `npm run lint`    | Vérifie les types TypeScript                                |
+| `npm run test`    | Parcours de commande automatisé dans un vrai navigateur     |
 
 ---
 
@@ -60,7 +63,7 @@ hours: [{ day: 'Lundi', value: '07:00 – 22:00' }, …],
 social: { instagram: 'https://instagram.com/…', facebook: 'https://facebook.com/…' },
 mapsUrl: '…',        // lien « Partager » de Google Maps
 mapsEmbedUrl: '…',   // lien « Intégrer une carte » de Google Maps
-seo: { siteUrl: 'https://votre-site.vercel.app' },
+seo: { siteUrl: 'https://…' },   // déjà renseigné avec l'URL GitHub Pages
 ```
 
 **Pour la carte Google Maps :** ouvrir Google Maps → chercher le café →
@@ -169,18 +172,35 @@ cet accord, élargissez le `crop` de `facade-hero` (mettre `w: 0.96`).
 
 ## 5. Mettre le site en ligne gratuitement
 
-### Option A — Partager un lien tout de suite (2 minutes, sans compte)
+### Option A — GitHub Pages (déjà en place ✅)
 
-1. Lancer `npm run build` : un dossier `dist/` est créé.
-2. Aller sur **https://app.netlify.com/drop**
-3. Glisser-déposer le dossier `dist` dans la page.
-4. Une adresse publique est générée immédiatement, prête à être envoyée.
+Le site est **déjà déployé** ici :
 
-C'est la voie la plus rapide pour faire voir le site à quelqu'un.
-Le lien reste actif, mais sans compte vous ne pourrez pas le mettre à jour :
-pour un vrai site, passez à l'option B.
+> **https://samincib.github.io/caffe-del-mattino/**
 
-### Option B — Vercel (recommandé pour le site définitif)
+Tout est automatisé par le fichier `.github/workflows/deploy.yml` :
+à **chaque `git push` sur `main`**, GitHub reconstruit le site et le remet
+en ligne tout seul, en une minute environ.
+
+```bash
+git add .
+git commit -m "Mise à jour du menu"
+git push
+```
+
+Suivre l'avancement : onglet **Actions** du dépôt
+(https://github.com/samincib/caffe-del-mattino/actions).
+
+GitHub Pages est gratuit, sans limite de trafic pour un site de cette taille,
+et entièrement basé sur des outils libres.
+
+> **Note technique :** sur GitHub Pages le site vit dans un sous-dossier
+> (`/caffe-del-mattino/`). Le workflow passe donc `VITE_BASE` à la
+> construction, et tous les liens vers les images et les scripts sont
+> préfixés automatiquement. En local, `npm run dev` continue de servir le
+> site à la racine, sans rien changer.
+
+### Option B — Vercel (si vous préférez, ou pour un nom de domaine)
 
 Gratuit, adresse permanente, mise à jour automatique à chaque modification.
 
@@ -216,8 +236,14 @@ Ensuite, **chaque `git push` met le site à jour automatiquement.**
 
 ### Nom de domaine
 
-Pour une adresse du type `caffedelmattino.tn`, achetez le domaine puis
-ajoutez-le dans Vercel (**Settings → Domains**). Le HTTPS est automatique.
+Pour une adresse du type `caffedelmattino.tn` :
+
+- **avec GitHub Pages** : dépôt → **Settings → Pages → Custom domain**,
+  puis ajouter un enregistrement `CNAME` chez votre registrar vers
+  `samincib.github.io`. Le HTTPS est automatique et gratuit.
+  Le site passe alors à la racine du domaine : retirer `VITE_BASE`
+  du workflow (`.github/workflows/deploy.yml`).
+- **avec Vercel** : **Settings → Domains**, HTTPS automatique également.
 
 ### Variables d'environnement
 
@@ -297,7 +323,29 @@ src/
 
 ---
 
-## 8. Technologies
+## 8. Tests automatisés
+
+`npm run test` pilote un vrai navigateur Chrome et rejoue tout le parcours
+client : affichage des 23 prix, filtres, recherche, ajout au panier,
+modification des quantités, persistance après rechargement, validation du
+formulaire, message WhatsApp généré, galerie, et absence de débordement
+horizontal en 360 / 390 / 430 / 768 / 1440 px.
+
+```bash
+npm run preview          # dans un terminal
+npm run test             # dans un autre
+
+# ou directement contre le site en ligne :
+TARGET=https://samincib.github.io/caffe-del-mattino/ npm run test
+```
+
+Les captures d'écran sont déposées dans `test-results/`.
+Si Chrome n'est pas à l'emplacement habituel, indiquer son chemin :
+`CHROME_PATH="/chemin/vers/chrome" npm run test`.
+
+---
+
+## 9. Technologies
 
 React 19 · TypeScript · Vite 7 · Tailwind CSS 4 · sharp (traitement des images)
 
@@ -305,7 +353,7 @@ Pas de backend, pas de base de données, pas d'abonnement.
 
 ---
 
-## 9. Ce qu'il reste à fournir
+## 10. Ce qu'il reste à fournir
 
 - [ ] Numéro WhatsApp qui recevra les commandes
 - [ ] Numéro de téléphone à afficher

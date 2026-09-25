@@ -2,8 +2,8 @@ import { chromium } from 'playwright-core';
 import fs from 'node:fs';
 
 const OUT = process.argv[2];
-const URL = 'http://localhost:4173/';
-const CHROME = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
+const URL = process.env.TARGET || 'http://localhost:4173/';
+const CHROME = process.env.CHROME_PATH || 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 fs.mkdirSync(OUT, { recursive: true });
 
 const results = [];

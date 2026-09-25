@@ -106,8 +106,8 @@ export const cafeConfig = {
     title: 'Caffè Del Mattino — Café & Petit Déjeuner',
     description:
       'Découvrez Caffè Del Mattino : café, petit déjeuner, jus frais, pâtisseries et chicha. Consultez notre menu et passez votre commande.',
-    /** URL publique du site une fois déployé, ex. 'https://caffe-del-mattino.vercel.app' */
-    siteUrl: TODO,
+    /** URL publique du site. À changer en cas de nom de domaine propre. */
+    siteUrl: 'https://samincib.github.io/caffe-del-mattino',
   },
 } as const;
 
