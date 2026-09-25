@@ -1,0 +1,202 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   Identité visuelle — couleurs relevées sur les photos du café :
+   le mur de feuillage (verts), l'ardoise et le mobilier (bois),
+   la façade au soleil (crèmes) et une pointe de laiton.
+   ========================================================================== */
+@theme {
+  --color-forest-50: #f0f6f1;
+  --color-forest-100: #dbe9de;
+  --color-forest-200: #b8d2be;
+  --color-forest-300: #8bb695;
+  --color-forest-400: #5c9569;
+  --color-forest-500: #3e8755;
+  --color-forest-600: #2f6b44;
+  --color-forest-700: #245234;
+  --color-forest-800: #1c4129;
+  --color-forest-900: #14301f;
+  --color-forest-950: #0b1c12;
+
+  --color-wood-100: #f2e4d6;
+  --color-wood-200: #e5cbb0;
+  --color-wood-300: #d3ad88;
+  --color-wood-400: #c08f63;
+  --color-wood-500: #a9764f;
+  --color-wood-600: #8b5e3c;
+  --color-wood-700: #6b4429;
+  --color-wood-800: #4a2f1c;
+
+  --color-cream-50: #fdfbf6;
+  --color-cream-100: #f9f4ea;
+  --color-cream-200: #f1e8d8;
+  --color-cream-300: #e6d8c0;
+  --color-cream-400: #d6c2a3;
+
+  --color-gold-300: #e3cd8c;
+  --color-gold-400: #d4b463;
+  --color-gold-500: #c9a227;
+  --color-gold-600: #a8851c;
+
+  --font-display: 'Fraunces', ui-serif, Georgia, 'Times New Roman', serif;
+  --font-sans: 'DM Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --shadow-soft: 0 1px 2px rgb(20 48 31 / 0.04), 0 8px 24px -12px rgb(20 48 31 / 0.18);
+  --shadow-lift: 0 2px 4px rgb(20 48 31 / 0.06), 0 18px 40px -18px rgb(20 48 31 / 0.3);
+  --shadow-panel: 0 -8px 40px -12px rgb(11 28 18 / 0.3);
+
+  --animate-rise: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-toast-in: toast-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-bump: bump 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --animate-fade-in: fade-in 0.3s ease-out both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes bump {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.22);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Le header collant ne doit pas masquer le titre des sections ancrées. */
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-cream-50);
+    color: var(--color-forest-950);
+    font-family: var(--font-sans);
+    /* Garde-fou anti débordement horizontal sur les petits écrans. */
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  /* Anneau de focus visible et cohérent sur tout le site (navigation clavier). */
+  :focus-visible {
+    outline: 2px solid var(--color-forest-600);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Masque la molette des champs nombre, inutile pour un numéro de table. */
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
+  }
+}
+
+/* ==========================================================================
+   Utilitaires maison
+   ========================================================================== */
+
+/** Largeur de contenu standard, avec gouttières mobiles. */
+@utility container-page {
+  width: 100%;
+  max-width: 78rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+}
+
+/** Bandeau d'onglets défilant horizontalement, sans barre de défilement. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/** Petit filet doré utilisé sous les titres de section. */
+@utility rule-gold {
+  display: block;
+  width: 3rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-gold-500), transparent);
+}
+
+/** Grain léger : casse l'aspect « aplat numérique » des fonds crème. */
+@utility grain {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.4;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  }
+}
+
+/** Réservation d'espace au-dessus du bouton panier flottant (mobile). */
+@utility pb-safe-cart {
+  padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+}

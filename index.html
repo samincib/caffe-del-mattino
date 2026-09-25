@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <title>Caffè Del Mattino — Café &amp; Petit Déjeuner</title>
+    <meta
+      name="description"
+      content="Découvrez Caffè Del Mattino : café, petit déjeuner, jus frais, pâtisseries et chicha. Consultez notre menu et passez votre commande."
+    />
+    <meta name="theme-color" content="#14301f" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Open Graph / réseaux sociaux -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Caffè Del Mattino" />
+    <meta property="og:title" content="Caffè Del Mattino — Café &amp; Petit Déjeuner" />
+    <meta
+      property="og:description"
+      content="Café, petit déjeuner, jus frais, pâtisseries et chicha. Consultez notre menu et commandez en quelques clics."
+    />
+    <meta property="og:image" content="/images/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="La façade du Caffè Del Mattino" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Caffè Del Mattino — Café &amp; Petit Déjeuner" />
+    <meta
+      name="twitter:description"
+      content="Café, petit déjeuner, jus frais, pâtisseries et chicha. Consultez notre menu et commandez en quelques clics."
+    />
+    <meta name="twitter:image" content="/images/og-image.jpg" />
+
+    <!-- Polices : chargement non bloquant, repli système en attendant -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap"
+    />
+
+    <!-- Première image du hero : préchargée pour un affichage immédiat -->
+    <link
+      rel="preload"
+      as="image"
+      href="/images/hero-mobile-480.webp"
+      imagesrcset="/images/hero-mobile-480.webp 480w, /images/hero-mobile-900.webp 900w"
+      imagesizes="100vw"
+      media="(max-width: 767px)"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/images/facade-hero-1280.webp"
+      imagesrcset="/images/facade-hero-640.webp 640w, /images/facade-hero-1280.webp 1280w, /images/facade-hero-1920.webp 1920w"
+      imagesizes="60vw"
+      media="(min-width: 768px)"
+      fetchpriority="high"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <div style="padding: 2rem; font-family: system-ui, sans-serif; text-align: center">
+        <h1>Caffè Del Mattino</h1>
+        <p>Ce site a besoin de JavaScript pour afficher le menu et le panier.</p>
+        <p>Merci d'activer JavaScript dans votre navigateur.</p>
+      </div>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
